@@ -1,6 +1,7 @@
-#include "CallNumber.hpp"
-#include "Book.hpp"
-#include "Cart.hpp"
+#include "call_number.hpp"
+#include "book.hpp"
+#include "cart.hpp"
+
 #include <iostream>
 
 int main(void) {
