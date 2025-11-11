@@ -1,4 +1,6 @@
 #include "linked_list.hpp"
+#include "linked_list_node.hpp"
+#include "book.hpp"
 
 template <typename T> LinkedList<T>::LinkedList() { rootNode = nullptr; }
 
@@ -19,7 +21,7 @@ template <typename T> void LinkedList<T>::insertData(T newData) {
 }
 
 template <typename T> Node<T>* LinkedList<T>::getData(int n) {
-  if (!rootNode) { return; }
+  //if (!rootNode) { throw std::exception::what("Cannot Call Data from Empty List"); }
   Node<T> *currentNode = rootNode;
   for (int i = 0; i < n; i++) {
     currentNode = currentNode->nextNode;
@@ -43,3 +45,6 @@ template <typename T> void LinkedList<T>::deleteNode(int n) {
   delete tempNode;
   return;  
 }
+
+template class LinkedList<Book>;
+template class Node<Book>;

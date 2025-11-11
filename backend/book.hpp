@@ -10,6 +10,7 @@ private:
   int barcode;
 
 public:
+  Book(const CallNumber cn, const std::string t, const std::string a);
   Book(const CallNumber cn, const std::string t, const std::string a, int newBarcode);
   ~Book();
   CallNumber getCallNumber() const;
