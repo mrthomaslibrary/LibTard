@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "patron_list.hpp"
 
 Patron::Patron(int newId, std::string newName, std::string newPatronType) {
@@ -17,6 +15,10 @@ int Patron::getId() { return id; }
 std::string Patron::getName() { return name; }
 
 std::string Patron::getPatronType() { return patronType; }
+
+int Patron::getNumBooksLoaned() { return numBooksLoaned; }
+
+int Patron::getNumBooksRequested() { return numBookRequested; }
 
 PatronList::PatronList() {
   size = 0;

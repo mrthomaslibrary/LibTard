@@ -21,6 +21,8 @@ public:
   int getId();
   std::string getName();
   std::string getPatronType();
+  int getNumBooksLoaned();
+  int getNumBooksRequested();
   void loanBook(int barcode);
   void returnBook(int barcode);
   void requestBook(int barcode);

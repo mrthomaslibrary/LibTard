@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -29,8 +30,7 @@ int Terminal::runCommand() {
   } else if (commandTerms[0] == "displayPatron") {
     if (commandTerms.size() < 2) {
       std::cout << "Error: Invalid Syntax" << std::endl;
-    } else {
-     
+    } else {  
       try {
         int index;
         if (commandTerms[1] == "recentPatron") {
@@ -43,9 +43,11 @@ int Terminal::runCommand() {
           throw std::runtime_error("non-existant patron");
         }
         std::cout << "Patron:" << std::endl;
-        std::cout << "Id:\t\t|\t"<< std::to_string(currentPatron->getId()) << std::endl;
-        std::cout << "Name:\t\t|\t" << currentPatron->getName() << std::endl;
-        std::cout << "Patron Type:\t|\t" << currentPatron->getPatronType() << std::endl;
+        std::cout << "Id:\t\t\t|\t"<< std::to_string(currentPatron->getId()) << std::endl;
+        std::cout << "Name:\t\t\t|\t" << currentPatron->getName() << std::endl;
+        std::cout << "Patron Type:\t\t|\t" << currentPatron->getPatronType() << std::endl;
+        std::cout << "Books on loan:\t\t|\t" << currentPatron->getNumBooksRequested() << std::endl;
+        std::cout << "Book requested:\t|\t" << currentPatron->getNumBooksRequested() << std::endl;
         recentPatron = index;
       } catch (const std::invalid_argument& e) {
         std::cout << "Error: Invalid Syntax, \"" << commandTerms[1] << "\" not an Integer" << std::endl;
@@ -73,9 +75,48 @@ int Terminal::runCommand() {
       if (returnCode == 405) { std::cout << "Error adding patron" << std::endl; }
       else { recentPatron = std::stoi(newId); }
     } while ( returnCode == 405);
-  } else {
-
-    return 100;
+  } else if (commandTerms[0] == "addBook") {
+    int returnCode = 305;
+    do {
+      string newBarcode;
+      string newTitle;
+      string newAuthor;
+      string newCallNumber;
+      std::cout << "Enter Barcode: ";
+      std::getline(std::cin, newBarcode);
+      std::cout << "Enter Title: ";
+      std::getline(std::cin, newTitle);
+      std::cout << "Enter Author: ";
+      std::getline(std::cin, newAuthor);
+      std::cout << "Enter CallNumber: ";
+      std::getline(std::cin, newCallNumber);
+      returnCode = books.addBook(std::stoi(newBarcode), newTitle, newAuthor, newCallNumber);
+      recentBook = std::stoi(newBarcode);
+    } while (returnCode == 305);
+  } else if (commandTerms[0] == "displayBook") {
+    if (commandTerms.size() < 2) {
+      std::cout << "Error: Invalid Syntax" << std::endl;
+    } else {
+      try {
+        int index;
+        if (commandTerms[1] == "recentBook") { index = recentBook; }
+        else { index = std::stoi(commandTerms[1]); }
+        Book* currentBook = books.bookList[index];
+        if (!currentBook) { throw std::runtime_error("non-existant book"); }
+        std::cout << "Book: " << std::endl;
+        std::cout << "Barcode:\t|\t" << std::to_string(currentBook->getBarcode()) << std::endl;
+        std::cout << "Title:\t\t|\t" << currentBook->getTitle() << std::endl;
+        std::cout << "Author:\t\t|\t" << currentBook->getAuthor() << std::endl;
+        std::cout << "CallNumber:\t|\t" << currentBook->getCallNumber() << std::endl;
+        recentBook = index;
+      } catch (const std::invalid_argument& e) {
+        std::cout << "Error: Invalid Syntax, \"" << commandTerms[1] << "\" not an integer" << std::endl;
+      } catch (const std::out_of_range& e) {
+        std::cout << "Error: Invalid Syntax, out of range" << std::endl;
+      } catch (const std::runtime_error& e) {
+        std::cout << "Error: Invalid Syntax, non-existant book" << std::endl;
+      }
+    }
   }
   return 101;
 }

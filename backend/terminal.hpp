@@ -12,8 +12,10 @@ public:
   Terminal();
   ~Terminal();
   PatronList patrons;
+  BookList books;
   int runCommand();
   int recentPatron;
+  int recentBook;
 };
 
 void parseCommand(std::vector<string>& commandTerms);

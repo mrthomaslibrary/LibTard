@@ -1,24 +1,45 @@
 #include "book.hpp"
-#include "call_number.hpp"
 #include <string>
 
-Book::Book(const CallNumber cn, const std::string t, const std::string a, int newBarcode) {
-  callnum = cn;
-  title = t;
-  author = a;
+
+Book::Book(const int newBarcode, const string newTitle, const string newAuthor, const string newCallNumber) {
   barcode = newBarcode;
+  title = newTitle;
+  author = newAuthor;
+  callNumber = newCallNumber;
 }
 
 Book::~Book() {}
 
-CallNumber Book::getCallNumber() const {
-  return callnum;
+string Book::getCallNumber() const { return callNumber; }
+
+std::string Book::getTitle() const { return title; }
+
+std::string Book::getAuthor() const { return author; }
+
+int Book::getBarcode() const { return barcode; }
+
+int validateCallNumber(string cn) {
+  return 0;
 }
 
-std::string Book::getTitle() const {
-  return title;
+BookList::BookList() {}
+
+BookList::~BookList() {}
+
+int BookList::addBook(const int newBarcode, const string newTitle, const string newAuthor, const string newCallNumber) {
+  if (bookList[newBarcode]) {
+    return 305;
+  }
+  else {
+    Book* newBook = new Book(newBarcode, newTitle, newAuthor, newCallNumber);
+    bookList[newBarcode] = newBook;
+    if (bookList[newBarcode]->getBarcode()  == newBarcode) {
+      return 301;
+    }
+    return 302;
+  }
+  return 302;
 }
 
-std::string Book::getAuthor() const {
-  return author;
-}
+Book* BookList::getBook(int n) { return bookList[n]; }

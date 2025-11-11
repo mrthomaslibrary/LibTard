@@ -1,19 +1,39 @@
 #pragma once
-#include "call_number.hpp"
+#define MAX_BOOKS 1000
 #include <string>
+using std::string;
 
 class Book {
 private:
-  CallNumber callnum;
-  std::string title;
-  std::string author;
+  string callNumber;
+  string title;
+  string author;
   int barcode;
+  int loanedTo;
 
 public:
-  Book(const CallNumber cn, const std::string t, const std::string a);
-  Book(const CallNumber cn, const std::string t, const std::string a, int newBarcode);
+  Book(const int newBarcode, const string newTitle, const string newAuthor, const string newCallNumber);
   ~Book();
-  CallNumber getCallNumber() const;
-  std::string getTitle() const;
-  std::string getAuthor() const;
+  string getCallNumber() const;
+  string getTitle() const;
+  string getAuthor() const;
+  int getBarcode() const;
+};
+
+int validateCallNumber(string cn);
+
+struct BookTemplate {
+  Book *emptyBook = new Book(0, "", "", "");
+};
+
+class BookList {
+private:
+  int size;
+  BookTemplate bookTemplates;
+public:
+  BookList();
+  ~BookList();
+  Book *bookList[MAX_BOOKS];
+  int addBook(const int newBarcode, const string newTitle, const string newAuthor, const string newCallNumber);
+  Book* getBook(int n);
 };
