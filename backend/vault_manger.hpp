@@ -14,6 +14,8 @@ public:
   BookList books;
   PatronList patrons;
   void loadBooks(string cypher);
+  void saveBooks();
   void loadPatrons(string cypher);
+  void savePatrons();
 };
 

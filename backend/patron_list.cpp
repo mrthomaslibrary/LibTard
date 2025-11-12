@@ -33,7 +33,10 @@ int PatronList::addPatron(std::string newId, std::string newName, std::string ne
     return 405;
   } else {
     patronList[newIntId] = newPatron;
-    if (patronList[newIntId]->getId() == newIntId) { return 401; }
+    if (patronList[newIntId]->getId() == newIntId) { 
+      size++;
+      return 401; 
+    }
     else { 
       delete newPatron;
       return 403;

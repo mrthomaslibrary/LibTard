@@ -21,6 +21,8 @@ int Book::getBarcode() const { return barcode; }
 
 void Book::setLoan(int id) { loanedTo = id; }
 
+int Book::getLoanedTo() { return loanedTo; }
+
 int validateCallNumber(string cn) {
   return 0;
 }
@@ -39,9 +41,12 @@ int BookList::addBook(const int newBarcode, const string newTitle, const string 
     if (bookList[newBarcode]->getBarcode()  == newBarcode) {
       return 301;
     }
+    size++;
     return 302;
   }
   return 302;
 }
 
 Book* BookList::getBook(int n) { return bookList[n]; }
+
+int BookList::getSize() { return size; }

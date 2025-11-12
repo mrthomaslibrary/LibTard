@@ -19,6 +19,7 @@ public:
   string getAuthor() const;
   int getBarcode() const;
   void setLoan(int id);
+  int getLoanedTo();
 };
 
 int validateCallNumber(string cn);
@@ -35,6 +36,7 @@ public:
   BookList();
   ~BookList();
   Book *bookList[MAX_BOOKS];
+  int getSize();
   int addBook(const int newBarcode, const string newTitle, const string newAuthor, const string newCallNumber);
   Book* getBook(int n);
 };
