@@ -19,6 +19,8 @@ std::string Book::getAuthor() const { return author; }
 
 int Book::getBarcode() const { return barcode; }
 
+void Book::setLoan(int id) { loanedTo = id; }
+
 int validateCallNumber(string cn) {
   return 0;
 }

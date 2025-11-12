@@ -18,6 +18,7 @@ public:
   string getTitle() const;
   string getAuthor() const;
   int getBarcode() const;
+  void setLoan(int id);
 };
 
 int validateCallNumber(string cn);
